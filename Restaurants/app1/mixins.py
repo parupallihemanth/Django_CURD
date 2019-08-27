@@ -13,5 +13,5 @@ class JsonMixin(object):
             return final_json   
 
 class ResponseMixin(object):
-    def http_response(self,final_data, status):
-        return HttpResponse(final_data)    
+    def http_response(self,json_data, status=200):
+        return HttpResponse(json_data, status=status)    

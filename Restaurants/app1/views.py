@@ -26,10 +26,10 @@ class Restaurants_Id_CBV(ResponseMixin,JsonMixin,View):
     def get(self, request, id, *args, **kwargs):
         try:
             data=Restaurants.objects.get(id=id)
-        except:
-            json_data=json.dumps({"msg":"Sorry no data available"}) 
-            return self.http_response(json_data, status=400)   
+        except Restaurants.DoesNotExist:
+            json_data=json.dumps({"msg":"Sorry requested data not available"}) 
+            return self.http_response(json_data, status=404)   
         else:
-            final_data=self.my_JsonMixin([data])
-            return self.http_response(final_data, status=200)    
+            json_data=self.my_JsonMixin([data, ])
+            return self.http_response(json_data)    
 
