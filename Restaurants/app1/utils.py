@@ -2,7 +2,9 @@ import json
 
 def is_json(data):
     try:
-        data=json.loads(data)
+        dict_data=json.loads(data)
         valid = True
-    except:
+    except ValueError:
         valid = False    
+
+    return valid    

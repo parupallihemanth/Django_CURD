@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from django.views.generic import View
 from app1.models import Restaurants
-
+from app1.utils import is_json
+from app1.forms import RestaurantForm
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 
 from app1.mixins import JsonMixin, ResponseMixin
 import json
@@ -10,6 +13,7 @@ import json
 
 
 #This class based view is responsible for  http methods which doesn't require id
+@method_decorator(csrf_exempt, name= 'dispatch')
 class Restaurants_CBV(ResponseMixin,JsonMixin,View):
 
     #Get all objects from database
@@ -24,7 +28,26 @@ class Restaurants_CBV(ResponseMixin,JsonMixin,View):
             return self.http_response(final_data, status=200)
     
     def post(self, request, *args, **kwargs):
-        
+
+        data = request.body
+        valid_json = is_json(data)
+
+        if not valid_json:
+            json_data=json.dumps({"msg":"Plese send only valid JSON"})
+            return self.http_response(json_data, status=404)
+        restaurant_data = json.loads(data)
+        form = RestaurantForm(restaurant_data) 
+
+        if form.is_valid():
+            form.save(commit=True)
+            json_data = json.dumps({"msg":"Restaurant created successfully"})
+            return self.http_response(json_data, status=200) 
+
+        if form.error():
+            json_data=json.dumps(form.error)
+            return self.http_response(json_data, status=404)  
+         
+
 
 
         
