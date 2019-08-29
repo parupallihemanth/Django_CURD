@@ -66,6 +66,10 @@ class Restaurants_Id_CBV(ResponseMixin,JsonMixin,View):
             return self.http_response(json_data)    
 
 
+    #To update a resource
+    def put(self, request, id, *args, **kwargs):
+        pass
+
 
 
 
