@@ -35,10 +35,10 @@ def create_a_resource():
 
 def update_a_resource(id):
     update_restaurant={
-        'status':'open'
+        'status':'close'
     }
-    resp=requests.post(BASE_URL+ENDPOINT+str(id), data=json.dumps(update_restaurant))
+    resp=requests.put(BASE_URL+ENDPOINT+str(id)+'/', data=json.dumps(update_restaurant))
     print(resp.status_code)
     print(resp.json())
 
-update_a_resource(5)    
+update_a_resource(1)    
