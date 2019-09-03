@@ -42,3 +42,12 @@ def update_a_resource(id):
     print(resp.json())
 
 # update_a_resource(1)    
+
+
+def delete_a_resource(id):
+    res = requests.delete(BASE_URL+ENDPOINT+str(id)+'/')
+    print(res.status_code)
+    print(res.json())
+
+
+delete_a_resource(6)

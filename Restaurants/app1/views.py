@@ -103,7 +103,18 @@ class Restaurants_Id_CBV(ResponseMixin,JsonMixin,View):
             return self.http_response(json_data, status=404)
 
 
-    def delete        
+    def delete(self, request, id, *args, **kwargs):
+        restaurents = self.get_obj_by_id(id)
+        
+        if restaurents is None:
+            json_data = json.dumps({"msg" : "Requested resource not ther in database"})    
+            return self.http_response(json_data, status = 404)
+
+        deleted_data = restaurents.delete()
+        print(deleted_data)
+        json_data = json.dumps({"msg" : "Requested resource deleted"})
+        return self.http_response(json_data) 
+                 
 
 
 
