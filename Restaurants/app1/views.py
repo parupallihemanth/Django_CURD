@@ -100,6 +100,12 @@ class Restaurants_Id_CBV(ResponseMixin,JsonMixin,View):
             return self.http_response(json_data, status=200)
         if form.error():
             json_data = json.dumps({form.error})
-            return self.http_response(json_data, status=404)    
+            return self.http_response(json_data, status=404)
+
+
+    def delete        
+
+
+
 
 

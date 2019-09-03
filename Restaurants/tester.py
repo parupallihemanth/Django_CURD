@@ -41,4 +41,4 @@ def update_a_resource(id):
     print(resp.status_code)
     print(resp.json())
 
-update_a_resource(1)    
+# update_a_resource(1)    
